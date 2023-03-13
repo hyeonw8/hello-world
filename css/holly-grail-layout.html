@@ -1,9 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+    <meta charset="UTF-8">
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid gray;
+        }
+        header{
+            padding-left: 20px;
+            border-bottom: 1px solid gray;
+        }
+        footer{
+            text-align: center;
+            border-top: 1px solid gray;
+            padding: 20px;
+        }
+        .content {
+            display: flex;
+        }
+        .content nav {
+            border-right: 1px solid gray;
+        }
+        .content aside {
+            border-left: 1px solid gray;
+            padding: 10px;
+        }
+        nav, aside {
+            flex-basis: 150px;
+            flex-shrink: 0;
+        }
+        main{
+            padding: 10px;
+            text-align: justify;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <header>
+            <h1>CSS</h1>
+        </header>
+        <section class="content">
+            <nav>
+                <ul>
+                    <li>positions</li>
+                    <li>float</li>
+                    <li>flex</li>
+                </ul>
+            </nav>
+            <main>
+                <h2>float</h2>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sapiente possimus adipisci soluta veritatis eos magni culpa natus fugiat voluptates suscipit molestiae molestias aut dolorum, officiis expedita facilis sed. Vel sunt accusamus facilis quos at magnam, ad perspiciatis doloremque neque dolorem porro ullam suscipit? Accusantium animi nobis quae laboriosam nostrum voluptatem enim natus, aliquam quia rerum ad quidem facere incidunt quasi inventore eaque debitis? Ea unde a laboriosam suscipit ut excepturi id aperiam, fugit assumenda facere esse, sed porro ullam ipsam accusantium totam, omnis quidem eos numquam quas. Reiciendis atque sapiente laboriosam aut rerum sunt facere nam quis deserunt voluptatem!
+            </main>
+            <aside>
+                ad 
+            </aside>
+        </section>
+        <footer>Copyleft</footer>
+    </div>
 </body>
 </html>
