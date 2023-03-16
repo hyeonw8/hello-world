@@ -1,14 +1,13 @@
-const hour = document.querySelector('.hour');
-const min = document.querySelector('.min');
-const sec = document.querySelector('.sec');
+const time = document.querySelector('.time');
+
 
 function clock (){
     const now = new Date();
-
-hour.innerText = now.getHours();
-min.innerText = now.getMinutes();
-sec.innerText = now.getSeconds();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+    time.innerText = `${hours} : ${minutes} : ${seconds}`;
 }
 
-
+clock(); 
 setInterval(clock, 1000);
