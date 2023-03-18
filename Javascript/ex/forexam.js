@@ -88,3 +88,19 @@ for (let i=5; i >= 1; i--){
 ***
 **
 * */
+
+//arr 라는 배열이 있을 때 배열의 마지막에서 세 번째 요소를 찾아보세요
+const arr =[1,2,3,4,5]
+arr[arr.length - 3] //3, 마지막에서 몇번 째 자리인지 빼면됨
+
+// 배열의 마지막에 추가할 때 
+const target = ['가','나','다'];
+ target[target.length] = '라';
+// 또는 push 사용
+ target.push('마');
+ // 삭제할때는 pop 사용
+
+ // 배열의 처음에 추가할 때 unshift
+ const target1 = ['나', '다','라'];
+ target.unshift('가');
+// 배열의 첫 번재 요소 제거할때는 shift
