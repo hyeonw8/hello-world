@@ -78,3 +78,13 @@ i==3 j==3 k==4 continue
 i==3 j==3 k==5 조건x
 i==4 continue
 i==5 조건 x */
+
+for (let i=5; i >= 1; i--){
+    console.log('*'.repeat(i))
+}
+/* 
+*****
+****
+***
+**
+* */
