@@ -104,3 +104,10 @@ const target = ['가','나','다'];
  const target1 = ['나', '다','라'];
  target.unshift('가');
 // 배열의 첫 번재 요소 제거할때는 shift
+
+// 반복문으로 배열 요소 삭제하기
+const arr1 = ['가', '라', '나', '다', '라', '마', '라'];
+while(arr1.indexOf('라') > -1){
+    arr1.splice(arr1.indexOf('라'), 1);
+
+} // arr = ['가','나','다','마]
