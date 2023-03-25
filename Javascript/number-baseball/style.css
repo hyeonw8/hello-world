@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 10px;
+    text-align: center;
+    
+    align-items: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+
+
+button {
+    background-color: powderblue;
+    border: none;
+    height: 22px;
+    border-radius: 2px;
+}
+button:hover {
+    background-color: rgb(141, 180, 186);
+}
+
+#base {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    row-gap: 15px;
+    border: 1px solid gray;
+    padding: 20px;
+    box-shadow: 3px 5px 15px rgb(0, 0, 0, 0.1);
+}
