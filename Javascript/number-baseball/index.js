@@ -41,12 +41,11 @@ $form.addEventListener('submit', (event) => {
   const value = $input.value;
   $input.value = '';
   if (!checkInput(value)) {
-    tries.push(value);
     return;
   }
   //입력값 문제없음
   if (answer.join('') === value) { // ''안써주면 ,가 붙음
-    $logs.textContent = '홈런';
+    $logs.textContent = '~~~ HOME RUN ~~~';
     return;
   }
   if (tries.length >= 9) { //10번째 시도일 때 tries에는 9개이기 때문에
@@ -73,12 +72,10 @@ $form.addEventListener('submit', (event) => {
   } else {
     $logs.append(`${value}: ${strike}S ${ball}B`, document.createElement('br'));
   }
-  if (out === 3) {
+  if(out === 3) {
     defeated();
     return;
   }
-  $logs.append(`${value}: ${strike}S ${ball}B`, document.createElement('br'));
-  // 한번에 문자열과 br태그 추가(문자열은 createElement안하고 그냥 써도 추가됨~)
   tries.push(value);
 
 
