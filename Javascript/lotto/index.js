@@ -23,7 +23,7 @@ const showBall = (number, $target) => {
     $target.appendChild($ball);
 }
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < winBalls.length; i++) {
     setTimeout(() => {
         showBall(winBalls[i], $result);
     }, (i + 1) * 1000);
