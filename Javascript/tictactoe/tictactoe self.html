@@ -96,7 +96,7 @@
       const hasWinner = checkWinner(target);
       //승자가 있으면
       if (hasWinner) {
-        $result.textContent = `"${turn}님의 승리!`;
+        $result.textContent = `${turn}님의 승리!`;
         $table.removeEventListener('click', callback);
         return;
       }
@@ -106,7 +106,7 @@
         $result.textContent = '무승부';
         return;
       }
-      turn = trun === 'X' ? 'O' : 'X';
+      turn = turn === 'X' ? 'O' : 'X';
       /* if (turn === 'O') { //턴 넘기기
         turn = 'X';
       } else if (turn === 'X') {
