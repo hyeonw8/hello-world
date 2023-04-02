@@ -71,11 +71,12 @@ const callback = (event) => {
     $result.textContent = `무승부`;
     return;
   }
-  if (turn === 'O') { //턴 넘기기
+  turn = trun === 'X' ? 'O' : 'X';
+  /* if (turn === 'O') { //턴 넘기기
     turn = 'X';
   } else if (turn === 'X') {
     turn = 'O';
-  }
+  } */
 };
 
 for (let i = 0; i < 3; i++) {
