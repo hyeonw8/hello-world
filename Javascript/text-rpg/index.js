@@ -9,7 +9,7 @@ const $heroAtt = document.querySelector('#hero-att');
 const $monsterName = document.querySelector('#monster-name');
 const $monsterHp = document.querySelector('#monster-hp');
 const $monsterAtt = document.querySelector('#monster-att');
-const $message = document.querySelector('#message'); 
+const $message = document.querySelector('#message');
 
 const hero = {
   name: '',
@@ -54,5 +54,20 @@ $gameMenu.addEventListener('submit', (event) => {
     $monsterAtt.textContent = `ATT: ${monster.att}`;
   } else if (input === '2') { // 휴식
   } else if (input === '3') { // 종료
+  }
+});
+
+$battleMenu.addEventListener('submit', (event) => {
+  const input = event.target['battle-input'].value;
+  if (input === '1') { // 공격
+    hero.attack(monster);
+    monster.attack(hero);
+    $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+    $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+    $message.textContent = `${hero.att}의 데미지를 주고, ${monster.att}의 데미지를 받았다.`;
+  } else if (input === '2') { // 회복
+
+  } else if (input === '3') { // 도망
+
   }
 });
