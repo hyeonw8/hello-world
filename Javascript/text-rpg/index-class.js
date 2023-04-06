@@ -24,8 +24,10 @@ class Game {
   }
   start() {
     $gameMenu.addEventListener('submit', this.onGameMenuInput);
-    $battleMenu.addEventListener('submit', this.onGameBattleInput);
+    $battleMenu.addEventListener('submit', this.onBattleMenuInput);
     this.changeScreen('game');
+    this.hero = new Hero(this, name);
+    this.updateHeroStat();
   }
   changeScreen(screen) {
     if (screen === 'start') {
@@ -57,7 +59,24 @@ class Game {
     if (input === '1') { // 공격
     } else if (input === '2') { // 회복
     } else if (input === '3') { // 도망
+      this.changeScreen('game');
     }
+  }
+  updateHeroStat() {
+    const { hero } = this;
+    if (hero === null) {
+      $heroName.textContent = '';
+      $heroLevel.textContent = '';
+      $heroHp.textContent = '';
+      $heroXp.textContent = '';
+      $heroAtt.textContent = '';
+      return;
+    }
+    $heroName.textContent = hero.name;
+    $heroLevel.textContent = `${hero.lev}Lev`;
+    $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+    $heroXp.textContent = `XP: ${hero.xp}/${15 * hero.lec}`;
+    $heroAtt.textContent = `ATT: ${hero.att}`;
   }
 }
 class Hero {
