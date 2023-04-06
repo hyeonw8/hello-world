@@ -18,6 +18,14 @@ const hero = {
   hp: 100,
   xp: 0,
   att: 10,
+  attack(monster) {
+    monster.hp -= this.att; //= hero.att
+    this.hp -= monster.att;
+  },
+  heal(monster) {
+    this.hp += 20;
+    this.hp -= monster.att;
+  }
 };
 let monster = null;
 const monsterList = [
