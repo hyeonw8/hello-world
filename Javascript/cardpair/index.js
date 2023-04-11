@@ -6,6 +6,7 @@ let colorCopy = colors.concat(colors); // concat 원본수정하지 않고 새�
 let shuffled = [];
 let clicked = [];
 let completed = [];
+let clickable = false;
 
 function shuffle() { // 피셔-예이츠 셔플
   for (let i = 0; colorCopy.length > 0; i += 1) {
@@ -31,6 +32,10 @@ function createCard(i) { // div.card > div.card-inner > (div.card-front + div.ca
 }
 
 function onClickCard() {
+  if (!clickable || completed.includes(this) || clicked[0] === this) {
+    // 처음에 뒤집히는 동안 클릭 막기 || 이미 완성되 카드 클릭 막기 || 내가 방금 클릭한거, 2번 연달아 클릭 막기
+    return; 
+  }
   this.classList.toggle('flipped');
   clicked.push(this);
   if (clicked.length !== 2) {
@@ -60,6 +65,7 @@ function onClickCard() {
 }
 
 function startGame() {
+  clickable = false;
   shuffle();
   for (let i = 0; i < total; i += 1) {
     const card = createCard(i);
@@ -77,6 +83,7 @@ function startGame() {
     document.querySelectorAll('.card').forEach((card) => {
       card.classList.remove('flipped');
     });
+    clickable = true;
   }, 5000);
 }
 startGame(); 
