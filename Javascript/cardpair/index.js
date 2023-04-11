@@ -44,6 +44,7 @@ function onClickCard() {
   const firstBackColor = clicked[0].querySelector('.card-back').style.backgroundColor;
   const secondBackColor = clicked[1].querySelector('.card-back').style.backgroundColor;
   if (firstBackColor === secondBackColor) {
+    clickable = false; //배열안에 애초에 2개만 들어갈 수 있게 해주기 위해서
     completed.push(clicked[0]);
     completed.push(clicked[1]);
     clicked = [];
@@ -60,6 +61,7 @@ function onClickCard() {
     clicked[0].classList.remove('flipped');
     clicked[1].classList.remove('flipped');
     clicked = [];
+    clickable = true; //배열안에 애초에 2개만 들어갈 수 있게 해주기 위해서
   }, 1000);
   
 }
