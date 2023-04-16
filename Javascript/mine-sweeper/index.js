@@ -39,6 +39,40 @@ function planeMine() {
   }
   return data;
 }
+
+function onRightClick(event) {
+  event.preventDefault();
+  const target = event.target; // td가 이벤트타켓
+  const rowIndex  = target.parentNode.rowIndex; //target.parentNode = tr, tr의 로우인덱스
+  const cellIndex = target.cellIndex; // td의 셀인덱스. 우리가 몇번째 줄 몇변재 칸인지 알기 위해
+  const cellData = data[rowIndex][cellIndex];
+  if (cellData === CODE.MINE) { // 지뢰면
+    data[rowIndex][cellIndex] = CODE.QUESTION_MINE; // 물음표 지뢰로
+    target.className = 'question';
+    target.textContent = '?';
+  } else if (cellData === CODE.QUESTION_MINE) { // 물음표 지뢰면
+    data[rowIndex][cellIndex] = CODE.FLAG_MINE; // 깃발 지뢰로
+    target.className = 'flag';
+    target.textContent = '!';
+  } else if (cellData === CODE.FLAG_MINE) { // 깃발 지뢰면
+    data[rowIndex][cellIndex] = CODE.MINE; // 지뢰로
+    target.className = '';
+    target.textContent = '';
+  } else if (cellData === CODE.NORMAL) { // 닫힌 칸이면
+    data[rowIndex][cellIndex] = CODE.QUESTION; // 물음표로
+    target.className = 'question';
+    target.textContent = '?';
+  } else if (cellData === CODE.QUESTION) { // 물음표면
+    data[rowIndex][cellIndex] = CODE.FLAG; // 깃발로
+    target.className = 'flag';
+    target.textContent = '!';
+  } else if (cellData === CODE.FLAG) { //깃발이면
+    data[rowIndex][cellIndex] = CODE.NORMAL; // 닫힌 칸으로
+    target.className = '';
+    target.textContent = '';
+  } 
+}
+
 function drawTable() {
   data = planeMine();
     data.forEach((row) => {
@@ -51,5 +85,6 @@ function drawTable() {
         $tr.append($td);
       });
       $tbody.append($tr);
+      $tbody.addEventListener('contextmenu', onRightClick); // 이벤트 버블링
     })
 }
