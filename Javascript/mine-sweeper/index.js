@@ -78,19 +78,17 @@ function onLeftClick(event) {
   const rowIndex = target.parentNode.rowIndex;
   const cellIndex = target.cellIndex;
   const cellData = data[rowIndex][cellIndex];
-  if (cellData === CODE.NORMAL) {
-    const count = countMine(rowIndex, cellIndex);
-    if (cellData === CODE.NORMAL) { // 닫힌 칸이면
-      openAround(rowIndex, cellIndex);
-    } else if (cellData === CODE.MINE) { // 지뢰 칸이면
-      target.textContent = '펑';
-      target.className = 'opened';
-      clearInterval(interval);
-      $tbody.removeEventListener('contextmenu', onRightClick);
-      $tbody.removeEventListener('click', onLeftClick);
-    } // 나머지는 무시
-    // 아무 동작도 안 함
-  }
+  if (cellData === CODE.NORMAL) { // 닫힌 칸이면
+    openAround(rowIndex, cellIndex);
+  } else if (cellData === CODE.MINE) { // 지뢰 칸이면
+    target.textContent = '펑';
+    target.className = 'opened';
+    clearInterval(interval);
+    $tbody.removeEventListener('contextmenu', onRightClick);
+    $tbody.removeEventListener('click', onLeftClick);
+  } // 나머지는 무시
+  // 아무 동작도 안 함
+}
 }
 
 function drawTable() {
