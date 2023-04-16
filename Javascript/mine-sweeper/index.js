@@ -73,6 +73,23 @@ function onRightClick(event) {
   }
 }
 
+// 1 2 3
+// 4 5 6
+// 7 8 9
+
+function countMine(rowIndex, cellIndex) { //주변 지뢰갯수 세기
+  const mines = [CODE.MINE, CODE.QUESTION_MINE, CODE.FLAG_MINE];
+  let i = 0;
+  mines.includes(data[rowIndex - 1]?.[cellIndex - 1]) && i++; // 앞에가 존재하면 뒤에 i++을 실행~
+  mines.includes(data[rowIndex - 1]?.[cellIndex]) && i++;
+  mines.includes(data[rowIndex - 1]?.[cellIndex + 1]) && i++;
+  mines.includes(data[rowIndex][cellIndex - 1]) && i++;
+  mines.includes(data[rowIndex][cellIndex + 1]) && i++;
+  mines.includes(data[rowIndex + 1]?.[cellIndex - 1]) && i++;
+  mines.includes(data[rowIndex + 1]?.[cellIndex]) && i++;
+  mines.includes(data[rowIndex + 1]?.[cellIndex + 1]) && i++;
+  return i;
+}
 
 function onLeftClick(event) {
   const target = event.target; // td가 이벤트타켓
