@@ -73,23 +73,23 @@ function onRightClick(event) {
   }
 }
 
+
 function onLeftClick(event) {
   const target = event.target; // td가 이벤트타켓
   const rowIndex = target.parentNode.rowIndex;
   const cellIndex = target.cellIndex;
   const cellData = data[rowIndex][cellIndex];
   if (cellData === CODE.NORMAL) { // 닫힌 칸이면
-    openAround(rowIndex, cellIndex);
+    const count = countMine(rowIndex, cellIndex);
+    target.textContent = count || '';
+    target.className = 'appned';
+    data[rowIndex][cellIndex] = count;
   } else if (cellData === CODE.MINE) { // 지뢰 칸이면
-    target.textContent = '펑';
-    target.className = 'opened';
-    clearInterval(interval);
-    $tbody.removeEventListener('contextmenu', onRightClick);
-    $tbody.removeEventListener('click', onLeftClick);
+    // ~펑
   } // 나머지는 무시
   // 아무 동작도 안 함
 }
-}
+ 
 
 function drawTable() {
   data = planeMine();
