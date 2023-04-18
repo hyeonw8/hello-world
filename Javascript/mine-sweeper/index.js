@@ -98,11 +98,16 @@ function onLeftClick(event) {
   const cellData = data[rowIndex][cellIndex];
   if (cellData === CODE.NORMAL) { // 닫힌 칸이면
     const count = countMine(rowIndex, cellIndex);
-    target.textContent = count || '';
+    target.textContent = count || ''; // 앞에가 false면 뒤를 실행해라
     target.className = 'appned';
     data[rowIndex][cellIndex] = count;
   } else if (cellData === CODE.MINE) { // 지뢰 칸이면
     // ~펑
+    target.textContent = 'bomb!';
+    target.className = 'opened';
+    $tbody.removeEventListener('contextmenu', onRightClick);
+    $tbody.removeEventListener('click', onLeftClick);
+
   } // 나머지는 무시
   // 아무 동작도 안 함
 }
