@@ -101,8 +101,7 @@ function onLeftClick(event) {
     target.textContent = count || ''; // 앞에가 false면 뒤를 실행해라
     target.className = 'appned';
     data[rowIndex][cellIndex] = count;
-  } else if (cellData === CODE.MINE) { // 지뢰 칸이면
-    // ~펑
+  } else if (cellData === CODE.MINE) { // 지뢰 칸이면 ~펑
     target.textContent = 'bomb!';
     target.className = 'opened';
     $tbody.removeEventListener('contextmenu', onRightClick);
