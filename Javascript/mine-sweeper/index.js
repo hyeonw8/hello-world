@@ -91,16 +91,42 @@ function countMine(rowIndex, cellIndex) { //주변 지뢰갯수 세기
   return i;
 }
 
+function open(rowIndex, cellIndex) {
+  const target = $tbody.children[rowIndex]?.children[cellIndex];
+  if (!target) {
+    return;
+  }
+  const count = countMine(rowIndex, cellIndex);
+  target.textContent = count || '';
+  target.className = 'opened';
+  data[rowIndex][cellIndex] = count;
+  return count;
+}
+
+function openAround(rI, cI) { // 재귀함수
+  setTimeout(() => {
+    const count = open(rI, cI);
+    if (count === 0) { // 0이면 주변 블럭도 다같이 openAround 실행
+      openAround(rI - 1, cI - 1);
+      openAround(rI - 1, cI);
+      openAround(rI - 1, cI + 1);
+      openAround(rI, cI - 1);
+      openAround(rI, cI + 1);
+      openAround(rI + 1, cI - 1);
+      openAround(rI + 1, cI);
+      openAround(rI + 1, cI + 1);
+    }
+  }, 0); // 그런데 이런 식으로 하면 에러가 또 발생하게 됨 => 느리게 열리고, 브라우저가 멈추는 현상 발생
+ 
+}
+
 function onLeftClick(event) {
   const target = event.target; // td가 이벤트타켓
   const rowIndex = target.parentNode.rowIndex;
   const cellIndex = target.cellIndex;
   const cellData = data[rowIndex][cellIndex];
   if (cellData === CODE.NORMAL) { // 닫힌 칸이면
-    const count = countMine(rowIndex, cellIndex);
-    target.textContent = count || ''; // 앞에가 false면 뒤를 실행해라
-    target.className = 'appned';
-    data[rowIndex][cellIndex] = count;
+   openAround(rowIndex, cellIndex); // 내 칸을 먼저 열고 내 칸이 0이면 주변 칸도 같이 여는 
   } else if (cellData === CODE.MINE) { // 지뢰 칸이면 ~펑
     target.textContent = 'bomb!';
     target.className = 'opened';
