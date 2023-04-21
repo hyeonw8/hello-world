@@ -114,12 +114,12 @@ function open(rowIndex, cellIndex) {
   console.log(openCount);
   if (openCount === row * cell - mine) {
     const time = (new Date() - startTime) / 1000;
-    clearInterval(interal);
+    clearInterval(interval);
     $tbody.removeEventListener('contextmenu', onRightClick);
     $tbody.removeEventListener('click', onLeftClick);
     setTimeout(() => { //화면이 바뀔 수 있는 시간을 주기 위해서 
       alert(`승리했습니다! ${time}초가 걸렸습니다.`);
-    }, 0); 
+    }, 500); 
   }
   return count;
 }
@@ -151,6 +151,7 @@ function onLeftClick(event) {
   } else if (cellData === CODE.MINE) { // 지뢰 칸이면 ~펑
     target.textContent = 'bomb!';
     target.className = 'opened';
+    clearInterval(interval);
     $tbody.removeEventListener('contextmenu', onRightClick);
     $tbody.removeEventListener('click', onLeftClick);
 
