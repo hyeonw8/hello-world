@@ -1,3 +1,4 @@
+const $timer = document.querySelector('#timer');
 const $tbody = document.querySelector('#table tbody');
 const $result = document.querySelector('#result');
 let row = 10; // 줄
@@ -13,6 +14,14 @@ const CODE = {
   OPENED: 0, // 0 이상이면 다모두 열린 칸
 };
 let data;
+let openCount = 0;
+let startTime = new Date();
+const interval = setInterval(() => {
+  const time = Math.floor((new Date() - startTime) / 1000);
+  $timer.textContent = `${time}초`;
+},1000); 
+
+
 
 function planeMine() {
   const candidate = Array(row * cell).fill().map((arr, i) => {
@@ -92,6 +101,7 @@ function countMine(rowIndex, cellIndex) { //주변 지뢰갯수 세기
 }
 
 function open(rowIndex, cellIndex) {
+  if (data[rowIndex]?.[cellIndex] >= CODE.OPENED) return; // 한번 열은 칸은 다시 안열도록, ?.넣어줘야 함. rowIndex가 undefined 일 수 있으니
   const target = $tbody.children[rowIndex]?.children[cellIndex];
   if (!target) {
     return;
@@ -100,6 +110,17 @@ function open(rowIndex, cellIndex) {
   target.textContent = count || '';
   target.className = 'opened';
   data[rowIndex][cellIndex] = count;
+  openCount++;
+  console.log(openCount);
+  if (openCount === row * cell - mine) {
+    const time = (new Date() - startTime) / 1000;
+    clearInterval(interal);
+    $tbody.removeEventListener('contextmenu', onRightClick);
+    $tbody.removeEventListener('click', onLeftClick);
+    setTimeout(() => { //화면이 바뀔 수 있는 시간을 주기 위해서 
+      alert(`승리했습니다! ${time}초가 걸렸습니다.`);
+    }, 0); 
+  }
   return count;
 }
 
