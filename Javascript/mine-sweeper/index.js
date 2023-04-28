@@ -1,3 +1,4 @@
+const $form = document.querySelector('#form');
 const $timer = document.querySelector('#timer');
 const $tbody = document.querySelector('#table tbody');
 const $result = document.querySelector('#result');
@@ -14,13 +15,27 @@ const CODE = {
   OPENED: 0, // 0 이상이면 다모두 열린 칸
 };
 let data;
-let openCount = 0;
-let startTime = new Date();
-const interval = setInterval(() => {
-  const time = Math.floor((new Date() - startTime) / 1000);
-  $timer.textContent = `${time}초`;
-},1000); 
+let openCount;
+let startTime;
+let interval;
+const dev = false;
 
+function onsubmit() {
+  event.preventDefault();
+  row = parseInt(event.target.row.value);
+  cell = parseInt(event.target.cell.value);
+  mine = parseInt(event.target.mine.value);
+  openCount = 0;
+  clearInterval(interval); // 게임 재시작후 시간 그대로 인거 고치기 위함
+  $tbody.innerHTML = ''; // 게임 재시작할 때 화면 새로고쳐주기 위해
+  drawTable();
+  startTime = new Date();
+  interval =  setInterval(() => {
+    const time = Math.floor((new Date() - startTime) / 1000);
+    $timer.textContent = `${time}초`;
+  },1000); 
+};
+$form.addEventListener('submit', onsubmit);
 
 
 function planeMine() {
@@ -66,7 +81,7 @@ function onRightClick(event) {
   } else if (cellData === CODE.FLAG_MINE) { // 깃발 지뢰면
     data[rowIndex][cellIndex] = CODE.MINE; // 지뢰로
     target.className = '';
-    target.textContent = '';
+    //target.textContent = 'X';
   } else if (cellData === CODE.NORMAL) { // 닫힌 칸이면
     data[rowIndex][cellIndex] = CODE.QUESTION; // 물음표로
     target.className = 'question';
@@ -167,7 +182,8 @@ function drawTable() {
     row.forEach((cell) => {
       const $td = document.createElement('td');
       if (cell === CODE.MINE) {
-        $td.textContent = 'X'; // 개발 편의를 위해
+        //dev && $td.textContent = 'X'; // 개발 편의를 위해, 실제 출시할 때는 지뢰가 어딨는지 표시하면 안되니까 숨김처리
+        // dev로 변수 설정해서 해주거나, 주석 처리(대신 일일이 확인해야 하는 단점 존재)
       }
       $tr.append($td);
     });
@@ -176,4 +192,4 @@ function drawTable() {
     $tbody.addEventListener('click', onLeftClick);
   });
 }
-drawTable();
+
