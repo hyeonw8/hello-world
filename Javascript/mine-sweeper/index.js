@@ -30,10 +30,10 @@ function onsubmit() {
   $tbody.innerHTML = ''; // 게임 재시작할 때 화면 새로고쳐주기 위해
   drawTable();
   startTime = new Date();
-  interval =  setInterval(() => {
+  interval = setInterval(() => {
     const time = Math.floor((new Date() - startTime) / 1000);
     $timer.textContent = `${time}초`;
-  },1000); 
+  }, 1000);
 };
 $form.addEventListener('submit', onsubmit);
 
@@ -134,7 +134,7 @@ function open(rowIndex, cellIndex) {
     $tbody.removeEventListener('click', onLeftClick);
     setTimeout(() => { //화면이 바뀔 수 있는 시간을 주기 위해서 
       alert(`승리했습니다! ${time}초가 걸렸습니다.`);
-    }, 500); 
+    }, 500);
   }
   return count;
 }
@@ -153,18 +153,62 @@ function openAround(rI, cI) { // 재귀함수
       openAround(rI + 1, cI + 1);
     }
   }, 0); // 그런데 이런 식으로 하면 에러가 또 발생하게 됨 => 느리게 열리고, 브라우저가 멈추는 현상 발생
- 
+
+}
+
+let normalCellFound = false;
+let searched;
+let firtstClick = true;
+function transferMine(rI, cI) {
+  if (normalCellFound) return; //이미 빈칸을 찾았으면 종료
+  if (rI < 0 || rI >= row || cI < 0 || cI >= cell) return; // 옵셔널 체이닝처럼 앞에값이 undefined 나오는 것을 막아주기 위해
+  if (searched[rI][cI]) return; //이미 찾은 칸이면 종료
+  if (data[rI]?.[cI] === CODE.NORMAL) { //빈칸인 경우
+    normalCellFound = true; // 지뢰 찾을 때 무한반복하는 거 없애기 위한 장치
+    data[rI][cI] = CODE.MINE;
+  } else { // 지뢰 칸인 경우 8방향 탐색
+    searched[rI][cI] = true;  
+    transferMine(rI - 1, cI - 1);
+    transferMine(rI - 1, cI);
+    transferMine(rI - 1, cI + 1);
+    transferMine(rI, cI - 1);
+    transferMine(rI, cI + 1);
+    transferMine(rI + 1, cI - 1);
+    transferMine(rI + 1, cI);
+    transferMine(rI + 1, cI + 1);
+  }
+}
+
+function showMines() {
+  const mines = [CODE.MINE, CODE.QUESTION_MINE, CODE.FLAG_MINE];
+  data.forEach((row, rowIndex) => {  // 계속 돌면서 지뢰가 있는 칸은 X로 표시
+    row.forEach((cell, cellIndex) => {
+      if (mines.includes(cell)) {
+        $tbody.children[rowIndex].children[cellIndex].textContent = 'X';
+      }
+    });
+  });
 }
 
 function onLeftClick(event) {
   const target = event.target; // td가 이벤트타켓
   const rowIndex = target.parentNode.rowIndex;
   const cellIndex = target.cellIndex;
-  const cellData = data[rowIndex][cellIndex];
+  let cellData = data[rowIndex][cellIndex];
+  if (firtstClick) {
+    firtstClick = false;
+    searched = Array(row).fill().map(() => []);
+    if (cellData === CODE.MINE) { // 첫 클릭이 지뢰면
+      transferMine(rowIndex, cellIndex); // 지뢰를 옮기기
+      data[rowIndex][cellIndex] = CODE.NORMAL; // 지금 칸을 빈칸으로
+      cellData = CODE.NORMAL;
+    }
+  }
   if (cellData === CODE.NORMAL) { // 닫힌 칸이면
-   openAround(rowIndex, cellIndex); // 내 칸을 먼저 열고 내 칸이 0이면 주변 칸도 같이 여는 
+    openAround(rowIndex, cellIndex); // 내 칸을 먼저 열고 내 칸이 0이면 주변 칸도 같이 여는 
   } else if (cellData === CODE.MINE) { // 지뢰 칸이면 ~펑
-    target.textContent = 'bomb!';
+    showMines();
+    target.textContent = '💣';
     target.className = 'opened';
     clearInterval(interval);
     $tbody.removeEventListener('contextmenu', onRightClick);
@@ -173,7 +217,7 @@ function onLeftClick(event) {
   } // 나머지는 무시
   // 아무 동작도 안 함
 }
- 
+
 
 function drawTable() {
   data = planeMine();
