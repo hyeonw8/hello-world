@@ -49,3 +49,35 @@ function put2ToRandomCell() { // 2를 랜덤하게 불러는 주는 함수
   data[randomCell[0]][randomCell[1]] = 2; // 2넣기
 }
 startGame(); 
+
+function moveCells(direction) {} // 방향에 따라 한쪽으로 몰아주기
+window.addEventListener('keyup', (event) => {
+  if(event.key === 'Arrowup') {
+    moveCells('up');
+  } else if (event.key === 'ArrowDown') {
+    moveCells('down');
+  } else if (event.key === 'ArrowLeft') {
+    moveCells('left');
+  } else if (event.key === 'ArrowRight') {
+    moveCells('right');
+  }
+});
+
+let startCoord;
+window.addEventListener('mousedown', (event) => {
+  startCoord = [event.clientX, event.clientY];
+});
+window.addEventListener('mouseup', (event) => {
+  const endCoord = [event.clientX, event.clientY];
+  const diffX = endCoord[0] - startCoord[0];
+  const diffY = endCoord[1] - startCoord[1];
+  if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) {
+    moveCells('left');
+  } else if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY)) {
+    moveCells('right');
+  } else if (diffX > 0 && Math.abs(diffX) <= Math.abs(diffY)) {
+    moveCells('down');
+  } else if (diffX < 0 && Math.abs(diffX) <= Math.abs(diffY)) {
+    moveCells('up');
+  }
+});
