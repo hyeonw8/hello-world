@@ -30,21 +30,6 @@ function startGame() {
   draw();
 };
 
-function draw() {
-  data.forEach((rowData, i) => {
-    rowData.forEach((cellData, j) => {
-      const $target = $table.children[i].children[j]; //td
-      if (cellData > 0) {
-        $target.textContent = cellData;
-        $target.className = 'color-' + cellData;
-      } else {
-        $target.textContent = '';
-        $target.className = '';
-      }
-    });
-  });
-}
-
 
 function put2ToRandomCell() { // 2를 랜덤하게 불러는 주는 함수
   const emptyCells = []; // 빈칸들이 각각 몇번째 칸, 몇번째 줄인지 찾아서 넣기 ex) [[i1, j1], [i2, j2], [i3, j3]]
@@ -60,6 +45,20 @@ function put2ToRandomCell() { // 2를 랜덤하게 불러는 주는 함수
   data[randomCell[0]][randomCell[1]] = 2; // 2넣기
 }
 
+function draw() {
+  data.forEach((rowData, i) => {
+    rowData.forEach((cellData, j) => {
+      const $target = $table.children[i].children[j]; //td
+      if (cellData > 0) {
+        $target.textContent = cellData;
+        $target.className = 'color-' + cellData;
+      } else {
+        $target.textContent = '';
+        $target.className = '';
+      }
+    });
+  });
+}
 
 startGame();
 
