@@ -1,6 +1,16 @@
-const $table = document.querySelector('#table');
-const $score = document.querySelector('#score');
+const $table = document.getElementById('table');
+const $score = document.getElementById('score');
+const $back = document.getElementById('back');
 let data = [];
+const history = [];
+
+$back.addEventListener('click', () => {
+  const prevData = history.pop();
+  if (!prevData) return; // 되돌릴 게 없으면 종료
+  $score.textContent = prevData.score; // 점수도 되돌려야 하기 때문!
+  data = prevData.table;
+  draw();
+});
 
 function startGame() {
   const $fragement = document.createDocumentFragment();
@@ -35,6 +45,7 @@ function draw() {
   });
 }
 
+
 function put2ToRandomCell() { // 2를 랜덤하게 불러는 주는 함수
   const emptyCells = []; // 빈칸들이 각각 몇번째 칸, 몇번째 줄인지 찾아서 넣기 ex) [[i1, j1], [i2, j2], [i3, j3]]
   data.forEach(function (rowData, i) {
@@ -48,6 +59,8 @@ function put2ToRandomCell() { // 2를 랜덤하게 불러는 주는 함수
   const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
   data[randomCell[0]][randomCell[1]] = 2; // 2넣기
 }
+
+
 startGame();
 
 // data = [
@@ -56,8 +69,13 @@ startGame();
 //   [2, 1024, 1024, 32],
 //   [32, 16, 64, 4],
 // ];
-draw();
+// draw();
+
 function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
+  history.push({
+    table: JSON.parse(JSON.stringify(data)), // 깊은 복사, 참조가 아니라 복사본을 넣어줘야 함
+    score: $score.textContent,
+  });
   switch (direction) {
     case 'left': {
       const newData = [[], [], [], []];
@@ -166,7 +184,7 @@ function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
       alert('축하합니다. 2048을 만들었습니다!');
     }, 0);
   } else if (!data.flat().includes(0)) { // 빈 칸이 없으면 패배
-    alert(`패배했습니다... ${score.textContent}점`);
+    alert(`패배했습니다... ${$score.textContent}점`);
   } else {
     put2ToRandomCell();
     draw();
