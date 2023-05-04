@@ -62,6 +62,7 @@ function draw() {
 
 startGame();
 
+
 // data = [
 //   [32, 2, 4, 2],
 //   [64, 4, 8, 4],
