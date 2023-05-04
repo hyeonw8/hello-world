@@ -1,5 +1,5 @@
 const $table = document.querySelector('#table');
-const $socre = document.querySelector('#socre');
+const $score = document.querySelector('#score');
 let data = [];
 
 function startGame() {
@@ -50,12 +50,12 @@ function put2ToRandomCell() { // 2를 랜덤하게 불러는 주는 함수
 }
 startGame();
 
-data = [
-  [0, 2, 4, 2],
-  [0, 0, 8, 0],
-  [2, 2, 4, 8],
-  [0, 16, 0, 4],
-];
+// data = [
+//   [32, 2, 4, 2],
+//   [64, 4, 8, 4],
+//   [2, 1024, 1024, 32],
+//   [32, 16, 64, 4],
+// ];
 draw();
 function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
   switch (direction) {
@@ -67,6 +67,8 @@ function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
             const currentRow = newData[i]
             const prevData = currentRow[currentRow.length - 1]; // 마지막값이 이전 값이 되기 때문에
             if (prevData === cellData) { // 이전 값과 지금 값이 같으면
+              const score = parseInt($score.textContent);
+              $score.textContent = score + currentRow[currentRow.length - 1] * 2;
               currentRow[currentRow.length - 1] *= -2; // 연속적으로 합쳐지는 것을 방지하기 위해 2가 아니고 -2
             } else {
               newData[i].push(cellData);
@@ -90,6 +92,8 @@ function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
             const currentRow = newData[i]
             const prevData = currentRow[currentRow.length - 1]; // 마지막값이 이전 값이 되기 때문에
             if (prevData === rowData[3 - j]) { // 이전 값과 지금 값이 같으면
+              const score = parseInt($score.textContent);
+              $score.textContent = score + currentRow[currentRow.length - 1] * 2;
               currentRow[currentRow.length - 1] *= -2; // 연속적으로 합쳐지는 것을 방지하기 위해 2가 아니고 -2
             } else {
               newData[i].push(rowData[3 - j]);
@@ -113,6 +117,8 @@ function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
             const currentRow = newData[j]
             const prevData = currentRow[currentRow.length - 1]; // 마지막값이 이전 값이 되기 때문에
             if (prevData === cellData) { // 이전 값과 지금 값이 같으면
+              const score = parseInt($score.textContent);
+              $score.textContent = score + currentRow[currentRow.length - 1] * 2;
               currentRow[currentRow.length - 1] *= -2; // 연속적으로 합쳐지는 것을 방지하기 위해 2가 아니고 -2
             } else {
               newData[j].push(cellData);
@@ -136,6 +142,8 @@ function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
             const currentRow = newData[j]
             const prevData = currentRow[currentRow.length - 1]; // 마지막값이 이전 값이 되기 때문에
             if (prevData === data[3 - i][j]) { // 이전 값과 지금 값이 같으면
+              const score = parseInt($score.textContent);
+              $score.textContent = score + currentRow[currentRow.length - 1] * 2;
               currentRow[currentRow.length - 1] *= -2; // 연속적으로 합쳐지는 것을 방지하기 위해 2가 아니고 -2
             } else {
               newData[j].push(data[3 - i][j]);
@@ -152,8 +160,17 @@ function moveCells(direction) { // 방향에 따라 한쪽으로 몰아주기
       break;
     }
   }
-  put2ToRandomCell();
-  draw();
+  if (data.flat().includes(2048)) { // 승리
+    draw();
+    setTimeout(() => {
+      alert('축하합니다. 2048을 만들었습니다!');
+    }, 0);
+  } else if (!data.flat().includes(0)) { // 빈 칸이 없으면 패배
+    alert(`패배했습니다... ${score.textContent}점`);
+  } else {
+    put2ToRandomCell();
+    draw();
+  }
 }
 window.addEventListener('keyup', (event) => {
   if (event.key === 'Arrowup') {
