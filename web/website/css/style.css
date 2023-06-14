@@ -7,11 +7,11 @@
 #skip a {position: absolute; left: 0; top: -35px; border: 1px solid #fff; color: #fff;
 background-color: #333; line-height: 30px; width: 140px; text-align: center;}
 #skip a:active,
-#skip a:focus {top: 0px;}
+#skip a:focus {top: 0;}
 
 /* 레이아웃 */
 #wrap {width: 100%;}
-#header {width: 100%;height: 325px; background: url(../img/header_bg.jpg) center top  repeat-x}
+#header {width: 100%;height: 325px; background: url(../img/header_bg.jpg) center top repeat-x}
 #contents {width: 100%;height: 800px; background: #222;}
 #footer {width: 100%;height: 200px; background: #333;}
 
@@ -22,11 +22,18 @@ background-color: #333; line-height: 30px; width: 140px; text-align: center;}
 #cont_cont {width: 100%; height: 200px; background-color: #666;}
 
 /* 컨테이너 */
-.conatiner {width: 990px; margin: 0 auto; height: inherit; /* background: rgba(225,225,225,0.3)*/}
+.container {width: 990px; margin: 0 auto; height: inherit; background: rgba(225,225,225,0.3)}
 
-.header {}
+/* 헤더 */
+.header { }
 .header .header-menu {text-align: right;}
-.header .header-menu a {color: #fff; padding: 10px 0px 10px 13px; display: inline-block;}
+.header .header-menu a {color: #fff; padding: 10px 3px 10px 13px; display: inline-block;}
 .header .header-menu a:hover {color: #666;}
-.header .header-tit {}
-.header .header-icon {}
+.header .header-tit { text-align: center;}
+.header .header-tit h1 {text-align: center; background-color: #4aa8d4; font-size: 28px;
+  padding: 5px 20px 6px 20px; display: inline-block; color: #fff; margin-top: 40px;
+  font-weight: normal; text-transform: uppercase;}
+.header .header-tit a {display: inline-block; background-color: #2698cb; font-size: 18px; color: #fff;
+  padding: 5px 20px 6px 20px; margin-top: -5px;
+}
+.header .header-icon { }

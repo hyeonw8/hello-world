@@ -7,3 +7,9 @@ legend, p, select, table, th, td, tr, textarea, button, form {margin: 0; padding
 /* a 링크 초기화 */
 a {color: #222; text-decoration: none;}
 a:hover {color: #390;}
+
+/* 폰트 초기화 */
+body, input, textarea, select, button, table {
+  font-family: 'Nanum Gothic', AppleSDGothicNeo-Regular, 'Malgun Gothic', '맑은 고딝', dotum, '돋움', sans-serif;
+  color: #222; font-size: 13px; line-height: 1.5;
+}
