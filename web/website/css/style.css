@@ -189,3 +189,16 @@ background: url(../img/icon.png) -150px -90px; width: 17px; height: 17px;}
 .tab_menu ul li.active {background: #2c94c4;}
 .tab_menu ul li.active a {color: #fff;}
 .tab_menu ul li.active ul li a {color: #333;}
+
+/* 게시판4 */
+.notice4 {position: relative; border: 1px solid #ccc;}
+.notice4 h4 {border-bottom: 1px solid #ccc; font-size: 14px; color: #0093bd; 
+  padding: 8px 10px; font-weight: 700;}
+.notice4 h4 em {color: #cf3292;}
+.notice4 ul {padding: 10px;}
+.notice4 li {overflow: hidden; background: url(../img/dot.gif) no-repeat 0px 8px; 
+  padding-left: 8px; padding-bottom: 2px;}
+.notice4 li a {float: left; width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.notice4 li span {float: right; width: 30%; text-align: right;}
+.notice4 a.more {position: absolute; right: 9px; top: 9px; display: block;
+ width: 40px; height: 17px; font-size: 12px; }
